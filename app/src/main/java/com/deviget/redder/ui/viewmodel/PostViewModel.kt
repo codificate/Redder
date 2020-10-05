@@ -45,8 +45,6 @@ class PostViewModel(
             .addTo(subscriptions)
     }
 
-    fun isLastPage() = posts.size < MAX_POST_SIZE
-
     private fun setTopPost(postResults: List<Post>) {
         if (posts.removeAll { postListWasRefreshed }) {
             postListWasRefreshed = false
