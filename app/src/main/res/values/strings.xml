@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Redder</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="redder_prefix">r/gadgets</string>
+    <string name="redder_posted_by">Posted by</string>
+    <string name="redder_username">u/MicroSofty88</string>
+    <string name="redder_post_created_at">5d</string>
+    <string name="redder_post_title">Japanese convenience stores will use VR-controlled robots to stack shelves</string>
+    <string name="redder_post_comments">327</string>
+    <string name="redder_post_comments_label">Comments</string>
+    <string name="redder_post_dismiss">Dismiss</string>
 </resources>
