@@ -12,7 +12,7 @@ data class Post(
     val num_comments: Int,
     val read: Boolean,
     val subreddit_name_prefixed: String,
-    val thumbnail: String,
+    val thumbnail: String?,
     val title: String,
     val url: String
 ) : Parcelable
