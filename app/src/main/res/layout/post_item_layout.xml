@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#1A1A1B">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/startGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/endGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="16dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="16dp"/>
+
+    <TextView
+        android:id="@+id/redder_prefix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#edeeef"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toTopOf="@+id/topGuideline"
+        tools:text="@string/redder_prefix" />
+
+    <TextView
+        android:id="@+id/redder_posted_by_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/redder_posted_by"
+        android:textColor="#edeeef"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/redder_prefix" />
+
+    <TextView
+        android:id="@+id/redder_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="#edeeef"
+        app:layout_constraintBottom_toBottomOf="@+id/redder_posted_by_label"
+        app:layout_constraintStart_toEndOf="@+id/redder_posted_by_label"
+        app:layout_constraintTop_toTopOf="@+id/redder_posted_by_label"
+        tools:text="@string/redder_username" />
+
+    <TextView
+        android:id="@+id/redder_created_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="#edeeef"
+        app:layout_constraintBottom_toBottomOf="@+id/redder_username"
+        app:layout_constraintStart_toEndOf="@+id/redder_username"
+        app:layout_constraintTop_toTopOf="@+id/redder_username"
+        tools:text="@string/redder_post_created_at" />
+
+    <TextView
+        android:id="@+id/redder_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="#edeeef"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/redder_posted_by_label"
+        tools:text="@string/redder_post_title" />
+
+    <ImageView
+        android:id="@+id/redder_image"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/redder_title"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <ImageView
+        android:id="@+id/comments_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/redder_image"
+        app:srcCompat="@drawable/ic_comments" />
+
+    <TextView
+        android:id="@+id/redder_comments_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="#818375"
+        tools:text="@string/redder_post_comments"
+        app:layout_constraintBottom_toBottomOf="@+id/comments_icon"
+        app:layout_constraintStart_toEndOf="@+id/comments_icon"
+        app:layout_constraintTop_toTopOf="@+id/comments_icon" />
+
+    <TextView
+        android:id="@+id/redder_comments_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="#818375"
+        android:text="@string/redder_post_comments_label"
+        app:layout_constraintBottom_toBottomOf="@+id/redder_comments_number"
+        app:layout_constraintStart_toEndOf="@+id/redder_comments_number"
+        app:layout_constraintTop_toTopOf="@+id/redder_comments_number" />
+
+    <TextView
+        android:id="@+id/redder_dismiss_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textColor="#818375"
+        android:text="@string/redder_post_dismiss"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintTop_toTopOf="@+id/redder_comments_label" />
+
+    <ImageView
+        android:id="@+id/redder_dismiss_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/redder_dismiss_label"
+        app:layout_constraintEnd_toStartOf="@+id/redder_dismiss_label"
+        app:layout_constraintTop_toTopOf="@+id/redder_dismiss_label"
+        app:srcCompat="@drawable/ic_dismiss" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="16dp"
+        android:background="#030303"
+        app:layout_constraintTop_toBottomOf="@id/comments_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
