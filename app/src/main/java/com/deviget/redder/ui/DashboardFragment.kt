@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -49,6 +50,9 @@ class DashboardFragment : Fragment() {
             progressLayout.visibility = GONE
             redderPostsRecycler.clearOnScrollListeners()
             adapter.setPosts(it, viewModel.postListWasRefreshed)
+            dismissButton.visibility = VISIBLE
+            noPostsAvailable.visibility = GONE
+            redderPostsRecycler.visibility = VISIBLE
         })
     }
 
@@ -65,6 +69,13 @@ class DashboardFragment : Fragment() {
         redderPostsRecycler.layoutManager = layoutManager
         redderPostsRecycler.adapter = adapter
         redderPostsRecycler.addOnScrollListener(createScrollListener())
+
+        dismissButton.setOnClickListener {
+            adapter.dismissAll()
+            it.visibility = GONE
+            redderPostsRecycler.visibility = GONE
+            noPostsAvailable.visibility = VISIBLE
+        }
     }
 
     private fun createScrollListener(): EndlessScrollListener {

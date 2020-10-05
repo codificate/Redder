@@ -9,4 +9,6 @@
     <string name="redder_post_comments">327</string>
     <string name="redder_post_comments_label">Comments</string>
     <string name="redder_post_dismiss">Dismiss</string>
+    <string name="dismiss_all_button_label">Dismiss all</string>
+    <string name="no_posts_available_label">No posts available</string>
 </resources>

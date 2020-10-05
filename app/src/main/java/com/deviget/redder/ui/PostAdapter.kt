@@ -32,6 +32,11 @@ class PostAdapter(private val postPublisher: PostBehaviorPublisher) :
         notifyDataSetChanged()
     }
 
+    fun dismissAll(){
+        notifyItemRangeRemoved(0, postList.size)
+        postList.clear()
+    }
+
     private fun postWasRead(position: Int) {
         val post = postList[position]
     }
