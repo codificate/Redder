@@ -5,22 +5,22 @@ import io.reactivex.subjects.PublishSubject
 
 interface PostBehaviorPublisher {
     fun removeAll()
-    fun removeItem(id: String)
-    fun itemWasRead(id: String)
-    fun observe(): Observable<Pair<String?, PostItemReaction>>
+    fun removeItem(position: Int)
+    fun itemWasRead(position: Int)
+    fun observe(): Observable<Pair<Int?, PostItemReaction>>
 }
 
 object DefaultPostBehaviorReaction: PostBehaviorPublisher {
 
-    private val publisher = PublishSubject.create<Pair<String?, PostItemReaction>>()
+    private val publisher = PublishSubject.create<Pair<Int?, PostItemReaction>>()
 
     override fun removeAll() = publisher.onNext(Pair(null, PostItemReaction.REMOVE_ALL))
 
-    override fun removeItem(id: String) = publisher.onNext(Pair(id, PostItemReaction.REMOVE))
+    override fun removeItem(position: Int) = publisher.onNext(Pair(position, PostItemReaction.REMOVE))
 
-    override fun itemWasRead(id: String) = publisher.onNext(Pair(id, PostItemReaction.WAS_READ))
+    override fun itemWasRead(position: Int) = publisher.onNext(Pair(position, PostItemReaction.WAS_READ))
 
-    override fun observe(): Observable<Pair<String?, PostItemReaction>> = publisher
+    override fun observe(): Observable<Pair<Int?, PostItemReaction>> = publisher
 }
 
 enum class PostItemReaction {
