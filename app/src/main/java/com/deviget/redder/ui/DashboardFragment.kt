@@ -16,7 +16,8 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 class DashboardFragment : Fragment() {
 
-    private lateinit var viewModel : PostViewModel
+    private lateinit var viewModel: PostViewModel
+    private val adapter = PostAdapter(DefaultPostBehaviorReaction)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,14 +33,22 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = PostViewModelFactory.create(requireActivity())
+        activity?.let {
+            viewModel = PostViewModelFactory.create(it)
+        }
 
+        observeViewModel()
+        initView()
+    }
+
+    private fun observeViewModel() {
+        viewModel.resetPosts()
         viewModel.listPosts.observe(viewLifecycleOwner, Observer {
             swipePostLayout.isRefreshing = false
             progressLayout.visibility = GONE
+            (redderPostsRecycler.adapter as PostAdapter).setPosts(it)
+            redderPostsRecycler.adapter?.notifyDataSetChanged()
         })
-
-        initView()
     }
 
     private fun initView() {
@@ -51,7 +60,8 @@ class DashboardFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(requireContext())
         redderPostsRecycler.layoutManager = layoutManager
-        redderPostsRecycler.addOnScrollListener(object : PaginationScrollListener(layoutManager){
+        redderPostsRecycler.adapter = adapter
+        redderPostsRecycler.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
             override fun loadMoreItems() {
                 viewModel.loadMorePosts()
             }

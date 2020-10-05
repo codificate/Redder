@@ -11,7 +11,7 @@ import com.deviget.redder.di.createNextPost
 object PostViewModelFactory {
 
     internal fun create(owner: FragmentActivity): PostViewModel {
-        return ViewModelProviders.of(owner).get(PostViewModel::class.java)
+        return ViewModelProviders.of(owner, createFactory()).get(PostViewModel::class.java)
     }
 
     @Suppress("UNCHECKED_CAST")

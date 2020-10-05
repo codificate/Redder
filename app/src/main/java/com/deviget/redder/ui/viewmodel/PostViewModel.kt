@@ -29,10 +29,6 @@ class PostViewModel(
 
     var postListWasRefreshed = false
 
-    init {
-        fetchPosts()
-    }
-
     fun loadMorePosts() {
         nextPosts(afterPost())
             .subscribeOn(Schedulers.io())
@@ -56,7 +52,7 @@ class PostViewModel(
             postListWasRefreshed = false
         }
         posts.addAll(postResults)
-        posts.sortBy { post: Post -> post.created }
+        posts.sortByDescending { post: Post -> post.created }
         mutableListPost.postValue(posts)
     }
 
