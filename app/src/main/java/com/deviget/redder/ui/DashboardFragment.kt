@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.deviget.redder.R
 import com.deviget.redder.ui.viewmodel.PostViewModel
 import com.deviget.redder.ui.viewmodel.PostViewModelFactory
-import com.deviget.redder.utils.PaginationScrollListener
+import com.deviget.redder.utils.EndlessScrollListener
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 class DashboardFragment : Fragment() {
@@ -37,8 +38,8 @@ class DashboardFragment : Fragment() {
             viewModel = PostViewModelFactory.create(it)
         }
 
-        observeViewModel()
         initView()
+        observeViewModel()
     }
 
     private fun observeViewModel() {
@@ -46,8 +47,8 @@ class DashboardFragment : Fragment() {
         viewModel.listPosts.observe(viewLifecycleOwner, Observer {
             swipePostLayout.isRefreshing = false
             progressLayout.visibility = GONE
-            (redderPostsRecycler.adapter as PostAdapter).setPosts(it)
-            redderPostsRecycler.adapter?.notifyDataSetChanged()
+            redderPostsRecycler.clearOnScrollListeners()
+            adapter.setPosts(it, viewModel.postListWasRefreshed)
         })
     }
 
@@ -55,22 +56,25 @@ class DashboardFragment : Fragment() {
         swipePostLayout.setOnRefreshListener {
             swipePostLayout.isRefreshing = true
             viewModel.postListWasRefreshed = true
+            redderPostsRecycler.addOnScrollListener(createScrollListener())
             viewModel.resetPosts()
         }
 
-        val layoutManager = LinearLayoutManager(requireContext())
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        redderPostsRecycler.setHasFixedSize(true)
         redderPostsRecycler.layoutManager = layoutManager
         redderPostsRecycler.adapter = adapter
-        redderPostsRecycler.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
-            override fun loadMoreItems() {
+        redderPostsRecycler.addOnScrollListener(createScrollListener())
+    }
+
+    private fun createScrollListener(): EndlessScrollListener {
+        return object :
+            EndlessScrollListener(redderPostsRecycler.layoutManager as LinearLayoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
                 viewModel.loadMorePosts()
+                viewModel.postListWasRefreshed = false
             }
-
-            override val isLastPage: Boolean = viewModel.isLastPage()
-            override val isLoading: Boolean = viewModel.postListWasRefreshed
-
-        })
-
+        }
     }
 
     companion object {
