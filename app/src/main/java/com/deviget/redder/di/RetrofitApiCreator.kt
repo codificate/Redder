@@ -1,5 +1,6 @@
 package com.deviget.redder.di
 
+import com.deviget.redder.BuildConfig
 import com.deviget.redder.domain.repository.RedderRepository
 import com.deviget.redder.domain.service.RedderService
 import com.deviget.redder.infrastructure.RestModule
@@ -12,7 +13,7 @@ object RetrofitApiCreator {
     }
 
     private fun createApiClient(): RedderApi {
-        return RestModule.createApi(RedderApi::class.java, "https://www.reddit.com/")
+        return RestModule.createApi(RedderApi::class.java, BuildConfig.BASE_URL)
     }
 
 }
