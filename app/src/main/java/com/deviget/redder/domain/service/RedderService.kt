@@ -36,16 +36,16 @@ class RedderService(private val client: RedderApi) :
 
     private fun PostDataResponse.toPost(): Post {
         return Post(
-            this.author,
+            this.author.orEmpty(),
             this.created,
-            this.domain,
-            this.id,
+            this.domain.orEmpty(),
+            this.id.orEmpty(),
             this.num_comments,
             this.visited,
-            this.subreddit_name_prefixed,
+            this.subreddit_name_prefixed.orEmpty(),
             this.thumbnail,
-            this.title,
-            this.url
+            this.title.orEmpty(),
+            this.url.orEmpty()
         )
     }
 }
