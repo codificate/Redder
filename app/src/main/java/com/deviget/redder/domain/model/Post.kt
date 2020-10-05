@@ -10,7 +10,7 @@ data class Post(
     val domain: String,
     val id: String,
     val num_comments: Int,
-    val readed: Boolean,
+    val read: Boolean,
     val subreddit_name_prefixed: String,
     val thumbnail: String,
     val title: String,
