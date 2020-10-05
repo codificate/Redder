@@ -10,9 +10,15 @@ import io.reactivex.Single
 
 class RedderService(private val client: RedderApi) :
     RedderRepository {
+
+    private lateinit var afterId: String
+
+    override fun after(): String = afterId
+
     override fun top(): Single<List<Post>> {
         return client.topList().map { response: RedderResponse ->
-            response.data.children.map { postData ->
+            afterId = response.data.after
+            return@map response.data.children.map { postData ->
                 postData.data.toPost()
             }
         }
@@ -21,7 +27,8 @@ class RedderService(private val client: RedderApi) :
     override fun nextPage(after: String): Maybe<List<Post>> {
         return client.nextPostList(after)
             .map { response: RedderResponse ->
-            response.data.children.map { postData ->
+                afterId = response.data.after
+                return@map response.data.children.map { postData ->
                 postData.data.toPost()
             }
         }

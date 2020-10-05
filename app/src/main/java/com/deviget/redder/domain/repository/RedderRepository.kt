@@ -5,6 +5,7 @@ import io.reactivex.Maybe
 import io.reactivex.Single
 
 interface RedderRepository {
+    fun after(): String
     fun top(): Single<List<Post>>
     fun nextPage(after: String): Maybe<List<Post>>
 }
