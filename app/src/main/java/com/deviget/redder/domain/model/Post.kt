@@ -1,4 +1,4 @@
-package com.deviget.redder.domain
+package com.deviget.redder.domain.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
