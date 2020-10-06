@@ -1,4 +1,4 @@
-package com.deviget.redder.ui.viewmodel
+package com.deviget.redder.ui.dashboard.viewmodel
 
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel

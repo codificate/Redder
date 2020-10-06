@@ -1,4 +1,4 @@
-package com.deviget.redder.ui
+package com.deviget.redder.ui.dashboard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.deviget.redder.R
 import com.deviget.redder.domain.model.Post
 
-class PostAdapter(private val postPublisher: PostBehaviorPublisher) :
+class PostAdapter(private val goToDetail: (Post) -> Unit) :
     RecyclerView.Adapter<PostViewHolder>() {
 
     private val postList: MutableList<Post> = mutableListOf()
@@ -23,7 +23,7 @@ class PostAdapter(private val postPublisher: PostBehaviorPublisher) :
     override fun getItemCount(): Int = postList.size
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(postList[position], position)
+        holder.bind(postList[position])
     }
 
     fun setPosts(posts: List<Post>, wasRefreshed: Boolean) {
@@ -39,6 +39,10 @@ class PostAdapter(private val postPublisher: PostBehaviorPublisher) :
 
     private fun postWasRead(position: Int) {
         val post = postList[position]
+        post.read = true
+        postList[position] = post
+        notifyItemChanged(position)
+        goToDetail(post)
     }
 
     private fun removePost(position: Int) {

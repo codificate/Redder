@@ -1,4 +1,4 @@
-package com.deviget.redder.ui
+package com.deviget.redder.ui.dashboard
 
 import android.view.View
 import android.view.View.GONE
@@ -26,7 +26,7 @@ class PostViewHolder(
     private val noWasRead = view.findViewById<ImageView>(R.id.redder_no_read)
     private val dismissLabel = view.findViewById<TextView>(R.id.redder_dismiss_label)
 
-    fun bind(post: Post, position: Int) {
+    fun bind(post: Post) {
         prefix.text = post.subreddit_name_prefixed
         userName.text = "u/" + post.author
         createdAt.text = TimeHelper.timeAgo(post.created)
@@ -39,13 +39,14 @@ class PostViewHolder(
                 .into(imageThumbnail)
             imageThumbnail.visibility = VISIBLE
         }
+        noWasRead.visibility = if(post.read) GONE else VISIBLE
         view.setOnClickListener {
             noWasRead.visibility = GONE
-            wasRead(position)
+            wasRead(adapterPosition)
         }
 
         dismissLabel.setOnClickListener {
-            dismiss(position)
+            dismiss(adapterPosition)
         }
     }
 

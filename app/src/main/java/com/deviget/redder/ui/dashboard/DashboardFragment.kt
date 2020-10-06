@@ -1,4 +1,4 @@
-package com.deviget.redder.ui
+package com.deviget.redder.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,18 +8,26 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.deviget.redder.R
-import com.deviget.redder.ui.viewmodel.PostViewModel
-import com.deviget.redder.ui.viewmodel.PostViewModelFactory
+import com.deviget.redder.domain.model.Post
+import com.deviget.redder.ui.detail.DetailFragment
+import com.deviget.redder.ui.dashboard.viewmodel.PostViewModel
+import com.deviget.redder.ui.dashboard.viewmodel.PostViewModelFactory
 import com.deviget.redder.utils.EndlessScrollListener
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 class DashboardFragment : Fragment() {
 
     private lateinit var viewModel: PostViewModel
-    private val adapter = PostAdapter(DefaultPostBehaviorReaction)
+    private val adapter =
+        PostAdapter { post: Post ->
+            goToDetail(
+                post
+            )
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +94,12 @@ class DashboardFragment : Fragment() {
                 viewModel.postListWasRefreshed = false
             }
         }
+    }
+
+    private fun goToDetail(post: Post) {
+        val bundleData = Bundle()
+        bundleData.putParcelable(DetailFragment.EXTRA_POST_KEY, post)
+        findNavController().navigate(R.id.action_mainFragment_to_detailFragment, bundleData)
     }
 
     companion object {

@@ -1,4 +1,4 @@
-package com.deviget.redder.ui.viewmodel
+package com.deviget.redder.ui.dashboard.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
